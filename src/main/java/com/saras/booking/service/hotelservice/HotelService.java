@@ -1,6 +1,5 @@
 package com.saras.booking.service.hotelservice;
 
-import com.saras.booking.entity.EmployeeEntity;
 import com.saras.booking.entity.Hotel;
 import com.saras.booking.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
