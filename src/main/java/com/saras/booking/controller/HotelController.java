@@ -35,7 +35,7 @@ public class HotelController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Hotel> getHotelById(@PathVariable("id") long id) {
+    public ResponseEntity<Hotel> getHotelById(@PathVariable("id") String id) {
 
         Hotel entity = service.getHotelById(id);
         return new ResponseEntity<Hotel>(entity, new HttpHeaders(), HttpStatus.OK);
@@ -49,7 +49,7 @@ public class HotelController {
     }
 
     @DeleteMapping("/{id}")
-    public HttpStatus deleteEmployeeById(@PathVariable("id") long id) {
+    public HttpStatus deleteEmployeeById(@PathVariable("id") String id) {
         service.deleteHotel(id);
         return HttpStatus.FORBIDDEN;
     }

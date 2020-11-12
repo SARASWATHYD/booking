@@ -1,7 +1,7 @@
 package com.saras.booking.service;
 
-import com.saras.booking.entity.Hotel;
-import com.saras.booking.repository.HotelRepository;
+import com.saras.booking.entity.Room;
+import com.saras.booking.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,23 +11,24 @@ import java.util.Optional;
 
 /**
  * Created by saraswathy
- * on 2020-09-19 20:44
+ * on 2020-11-12 22:06
  */
 
 @Service
-public class HotelService {
+public class RoomService {
 
     @Autowired
-    HotelRepository repository;
+    RoomRepository repository;
 
 
-    public Hotel createOrUpdateHotel(Hotel entity) {
+    public Room createOrUpdateHotel(Room entity) {
         System.out.println("repository::"+repository);
-        Optional<Hotel> hotel = repository.findById(entity.getEmail());
-        if(hotel.isPresent()) {
-            Hotel newEntity = hotel.get();
-            newEntity.setName(entity.getName());
-            newEntity.setPhno(entity.getPhno());
+        Optional<Room> room = repository.findById(entity.getRoomId());
+        if(room.isPresent()) {
+            Room newEntity = room.get();
+            newEntity.setHotelId(entity.getHotelId());
+            newEntity.setCost(entity.getCost());
+            newEntity.setRoomType(entity.getRoomType());
             newEntity = repository.save(newEntity);
 
             return newEntity;
@@ -38,7 +39,7 @@ public class HotelService {
     }
 
     public void deleteHotel(String id){
-        Optional<Hotel> hotel = repository.findById(id);
+        Optional<Room> hotel = repository.findById(id);
         if(!hotel.isPresent())
             throw new IllegalArgumentException("hotel not found::"+id);
 
@@ -47,8 +48,8 @@ public class HotelService {
     }
 
 
-    public Hotel getHotelById(String id){
-        Optional<Hotel> hotel = repository.findById(id);
+    public Room getHotelById(String id){
+        Optional<Room> hotel = repository.findById(id);
         if(!hotel.isPresent())
             throw new IllegalArgumentException("hotel not found::"+id);
 
@@ -56,9 +57,8 @@ public class HotelService {
 
     }
 
-    public List<Hotel> getAllEmployees()
-    {
-        List<Hotel> hotels = repository.findAll();
+    public List<Room> getAllRooms() {
+        List<Room> hotels = repository.findAll();
 
         if(hotels.size() > 0) {
             return hotels;
@@ -66,7 +66,5 @@ public class HotelService {
             return new ArrayList<>();
         }
     }
-
-
 
 }
