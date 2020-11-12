@@ -2,7 +2,7 @@ package com.saras.booking.controller;
 
 import com.saras.booking.entity.EmployeeEntity;
 import com.saras.booking.entity.Hotel;
-import com.saras.booking.service.hotelservice.HotelService;
+import com.saras.booking.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,12 +29,14 @@ public class HotelController {
     @Autowired
     HotelService service;
     @PostMapping
-    public Hotel addOrUpdateHotel(@RequestBody Hotel hotel){
-        return new HotelService().createOrUpdateHotel(hotel);
+    public ResponseEntity<Hotel> addOrUpdateHotel(@RequestBody Hotel hotel){
+        Hotel updated = service.createOrUpdateHotel(hotel);
+        return new ResponseEntity<Hotel>(updated, new HttpHeaders(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Hotel> getHotelById(@PathVariable("id") long id) {
+
         Hotel entity = service.getHotelById(id);
         return new ResponseEntity<Hotel>(entity, new HttpHeaders(), HttpStatus.OK);
     }

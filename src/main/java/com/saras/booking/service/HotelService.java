@@ -1,4 +1,4 @@
-package com.saras.booking.service.hotelservice;
+package com.saras.booking.service;
 
 import com.saras.booking.entity.Hotel;
 import com.saras.booking.repository.HotelRepository;
@@ -22,13 +22,12 @@ public class HotelService {
 
 
     public Hotel createOrUpdateHotel(Hotel entity) {
-        System.out.println(entity.getId());
+        System.out.println("repository::"+repository);
         Optional<Hotel> hotel = repository.findById(entity.getId());
-
         if(hotel.isPresent()) {
             Hotel newEntity = hotel.get();
             newEntity.setName(entity.getName());
-            newEntity.setAddress(entity.getAddress());
+            newEntity.setPhno(entity.getPhno());
             newEntity.setEmail(entity.getEmail());
             newEntity = repository.save(newEntity);
 

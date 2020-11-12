@@ -20,22 +20,21 @@ import javax.persistence.Table;
 public class Hotel {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="address")
-    private String address;
+    @Column(name = "phno")
+    private String phno;
 
-    @Column(name="email", nullable=false, length=200)
+    @Column(name = "email", nullable = false, length = 200)
     private String email;
-
 
     @Override
     public String toString() {
         return "Hotel [id=" + id + ", name=" + name +
-                ", address=" + address + ", email=" + email   + "]";
+                ", phno=" + phno + ", email=" + email + "]";
     }
 }
