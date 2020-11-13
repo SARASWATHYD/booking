@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 on 2020-08-30 13:39 */
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/book")
 public class BasicController {
 
     @PostMapping
@@ -25,4 +25,12 @@ public class BasicController {
     }
 
 
+    @PostMapping
+    public String bookRoom(){
+        //if new user write it in user table with type as customer.
+        //else
+        // step 1 : write data in booking table.
+        // step 2 : write content in
+        return "Hello World!";
+    }
 }

@@ -20,7 +20,6 @@ public class RoomService {
     @Autowired
     RoomRepository repository;
 
-
     public Room createOrUpdateHotel(Room entity) {
         System.out.println("repository::"+repository);
         Optional<Room> room = repository.findById(entity.getRoomId());
@@ -42,7 +41,6 @@ public class RoomService {
         Optional<Room> hotel = repository.findById(id);
         if(!hotel.isPresent())
             throw new IllegalArgumentException("hotel not found::"+id);
-
         repository.deleteById(id);
 
     }

@@ -1,8 +1,6 @@
 package com.saras.booking.service;
 
-import com.saras.booking.entity.EmployeeEntity;
 import com.saras.booking.entity.User;
-import com.saras.booking.repository.EmployeeRepository;
 import com.saras.booking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -52,14 +52,10 @@ public class EmployeeService {
                 newEntity.setEmail(entity.getEmail());
                 newEntity.setFirstName(entity.getFirstName());
                 newEntity.setLastName(entity.getLastName());
-
                 newEntity = repository.save(newEntity);
-
                 return newEntity;
-
         }else {
             entity = repository.save(entity);
-
             return entity;
         }
     }

@@ -22,14 +22,12 @@ public class HotelService {
 
 
     public Hotel createOrUpdateHotel(Hotel entity) {
-        System.out.println("repository::"+repository);
         Optional<Hotel> hotel = repository.findById(entity.getEmail());
         if(hotel.isPresent()) {
             Hotel newEntity = hotel.get();
             newEntity.setName(entity.getName());
             newEntity.setPhno(entity.getPhno());
             newEntity = repository.save(newEntity);
-
             return newEntity;
         } else {
             entity = repository.save(entity);
@@ -41,7 +39,6 @@ public class HotelService {
         Optional<Hotel> hotel = repository.findById(id);
         if(!hotel.isPresent())
             throw new IllegalArgumentException("hotel not found::"+id);
-
         repository.deleteById(id);
 
     }
@@ -51,22 +48,13 @@ public class HotelService {
         Optional<Hotel> hotel = repository.findById(id);
         if(!hotel.isPresent())
             throw new IllegalArgumentException("hotel not found::"+id);
-
         return hotel.get();
 
     }
 
-    public List<Hotel> getAllEmployees()
-    {
+    public List<Hotel> getAllEmployees() {
         List<Hotel> hotels = repository.findAll();
-
-        if(hotels.size() > 0) {
-            return hotels;
-        } else {
-            return new ArrayList<>();
-        }
+        return hotels.size() > 0 ? hotels : new ArrayList<>();
     }
-
-
 
 }

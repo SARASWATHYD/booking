@@ -1,6 +1,5 @@
 package com.saras.booking.controller;
 
-import com.saras.booking.entity.EmployeeEntity;
 import com.saras.booking.entity.Hotel;
 import com.saras.booking.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 /**
@@ -30,22 +28,18 @@ public class HotelController {
     HotelService service;
     @PostMapping
     public ResponseEntity<Hotel> addOrUpdateHotel(@RequestBody Hotel hotel){
-        Hotel updated = service.createOrUpdateHotel(hotel);
-        return new ResponseEntity<Hotel>(updated, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<Hotel>(service.createOrUpdateHotel(hotel), new HttpHeaders(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Hotel> getHotelById(@PathVariable("id") String id) {
-
         Hotel entity = service.getHotelById(id);
         return new ResponseEntity<Hotel>(entity, new HttpHeaders(), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<Hotel>> getAllHotels() {
-        List<Hotel> list = service.getAllEmployees();
-
-        return new ResponseEntity<List<Hotel>>(list, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<List<Hotel>>(service.getAllEmployees(), new HttpHeaders(), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
