@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
 /**Created by saraswathy
  *
 on 2020-08-30 13:39 */
@@ -31,6 +34,8 @@ public class BasicController {
         //else
         // step 1 : write data in booking table.
         // step 2 : write content in
+        ScriptEngine ee = new ScriptEngineManager().getEngineByName("Nashorn");
+
         return "Hello World!";
     }
 }
