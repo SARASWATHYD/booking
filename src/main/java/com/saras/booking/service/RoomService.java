@@ -46,7 +46,7 @@ public class RoomService {
     }
 
 
-    public Room getHotelById(String id){
+    public Room getRoomById(String id){
         Optional<Room> hotel = repository.findById(id);
         if(!hotel.isPresent())
             throw new IllegalArgumentException("hotel not found::"+id);

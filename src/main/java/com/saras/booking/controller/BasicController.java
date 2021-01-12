@@ -1,23 +1,24 @@
 package com.saras.booking.controller;
 
+import com.saras.booking.model.BookModel;
+import com.saras.booking.service.booking.BookingService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 
 /**Created by saraswathy
- *
-on 2020-08-30 13:39 */
+ *on 2020-08-30 13:39 */
 
 @RestController
 @RequestMapping("/book")
 public class BasicController {
 
-    @PostMapping
+    @PutMapping
     public String hello(){
         return "Hello World!";
     }
@@ -29,13 +30,13 @@ public class BasicController {
 
 
     @PostMapping
-    public String bookRoom(){
+    public String bookRoom(@RequestBody BookModel bookModel){
         //if new user write it in user table with type as customer.
         //else
         // step 1 : write data in booking table.
         // step 2 : write content in
-        ScriptEngine ee = new ScriptEngineManager().getEngineByName("Nashorn");
 
+        new BookingService().bookRoom(bookModel);
         return "Hello World!";
     }
 }

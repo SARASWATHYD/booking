@@ -40,4 +40,7 @@ public class Booking {
     @Column(name="amount")
     private float amount;
 
+    @Column(name="isDeleted")
+    private boolean isDeleted;
+
 }
