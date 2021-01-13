@@ -22,11 +22,11 @@ public class Booking {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private String bookingId;
 
-    @Column(name="startDateTime")
-    private String startDateTime;
+    @Column(name="startTime")
+    private long startTime;
 
-    @Column(name="endDateTime")
-    private String endDateTime;
+    @Column(name="endTime")
+    private long endTime;
 
     @Column(name="userId")
     private String userId;

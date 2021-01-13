@@ -7,7 +7,10 @@ import com.saras.booking.model.BookModel;
 import com.saras.booking.repository.BookingRepository;
 import com.saras.booking.service.HotelService;
 import com.saras.booking.service.RoomService;
+import com.saras.booking.service.date.DateUtils;
+import org.hibernate.sql.Select;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -33,9 +36,6 @@ public class BookingService {
 
 
     private boolean checkAvailability(BookModel bookModel){
-        Hotel hotel = getHotel(bookModel.getHotelId());
-        Room room = getRoom(bookModel.getRoomId());
-
         isAvailable(bookModel);
         return true;
     }
@@ -46,25 +46,15 @@ public class BookingService {
         return true;
     }
 
-    private Hotel getHotel(String hotelId){
-        Hotel hotel = new HotelService().getHotelById(hotelId);
-         if(!Optional.ofNullable(hotel).isPresent())
-             throw new IllegalArgumentException("Sorry hotel is not available::"+ hotelId);
-
-         return hotel;
-
-    }
-
-    private Room getRoom(String roomId){
-        Room room = new RoomService().getRoomById(roomId);
-        if(!Optional.ofNullable(room).isPresent())
-            throw new IllegalArgumentException("Sorry Room is not available::"+ roomId);
-        return room;
-    }
-
-    private Booking queryBooking(){
+    @Query
+    private Booking queryBooking(BookModel bookModel){
         //check whetehr hote l rom is available with in time range
-        return new Booking();
+
+
+
+         repository.getIntersectionBooking(bookModel.getRoomId(),
+                DateUtils.getLongFromString(bookModel.getStartTime()),
+                        DateUtils.getLongFromString(bookModel.getEndTime()));
     }
 
 

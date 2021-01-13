@@ -11,4 +11,8 @@ public class DateUtils {
     public  static String getDefaultEndTime(String startTime){
         return ZonedDateTime.parse(startTime).plusDays(1).toString();
     }
+
+    public static long getLongFromString(String time){
+        return ZonedDateTime.parse(time).toEpochSecond();
+    }
 }
