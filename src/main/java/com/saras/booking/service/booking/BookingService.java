@@ -1,14 +1,9 @@
 package com.saras.booking.service.booking;
 
 import com.saras.booking.entity.Booking;
-import com.saras.booking.entity.Hotel;
-import com.saras.booking.entity.Room;
 import com.saras.booking.model.BookModel;
 import com.saras.booking.repository.BookingRepository;
-import com.saras.booking.service.HotelService;
-import com.saras.booking.service.RoomService;
 import com.saras.booking.service.date.DateUtils;
-import org.hibernate.sql.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
@@ -47,16 +42,13 @@ public class BookingService {
     }
 
     @Query
-    private Booking queryBooking(BookModel bookModel){
-        //check whetehr hote l rom is available with in time range
+    private Booking queryBooking(BookModel bookModel) throws  Exception{
+        //check whetehr hotel rom is available with in time range
 
-
-
-         repository.getIntersectionBooking(bookModel.getRoomId(),
+        return repository.getIntersectionBooking(bookModel.getRoomId(),
                 DateUtils.getLongFromString(bookModel.getStartTime()),
-                        DateUtils.getLongFromString(bookModel.getEndTime()));
+                        DateUtils.getLongFromString(bookModel.getEndTime())).get().get();
     }
-
 
 
     public Booking create(Booking booking) {
