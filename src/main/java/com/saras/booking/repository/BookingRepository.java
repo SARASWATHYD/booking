@@ -14,6 +14,6 @@ public interface BookingRepository  extends JpaRepository<Booking, String> {
 
     @Async
     @Query("SELECT * FROM Booking t where t.roomId = :roomId and t.startTime < :startTime and t.endTime >=endTime and isDeleted =false")
-    Future<Optional<String>> getIntersectionBooking(String roomId, long startTime, long endTime);
+    Future<Optional<Booking>> getIntersectionBooking(String roomId, long startTime, long endTime);
 }
 
