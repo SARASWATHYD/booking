@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -21,28 +22,45 @@ public class BookingService {
     @Autowired
     BookingRepository repository;
 
-    public void bookRoom(BookModel bookModel){
+    public void bookRoom(BookModel bookModel) throws  Exception{
         new Validation().validateBookModel(bookModel);
         //check availability
         boolean isAvailable = checkAvailability(bookModel);
-        //block room in hotel
+
+        if(isAvailable){
+            //block room in hotel
+            blockRoomAtHotel(bookModel);
+        }
         //save user and hotel and room entity
     }
 
+    private void blockRoomAtHotel(BookModel bookModel){
 
-    private boolean checkAvailability(BookModel bookModel){
+        Booking booking = new Booking();
+        booking.setBookingId(""); // random generate
+        booking.setHotelId(bookModel.getHotelId());
+        booking.setRoomId(bookModel.getRoomId());
+        booking.setStartTime(DateUtils.getLongFromString(bookModel.getStartTime()));
+        booking.setEndTime(DateUtils.getLongFromString(bookModel.getEndTime()));
+        booking.setUserId(bookModel.getEmail());
+        booking.setDeleted(false);
+        create(booking);
+    }
+
+
+
+    private boolean checkAvailability(BookModel bookModel) throws  Exception{
         isAvailable(bookModel);
         return true;
     }
 
-    private boolean isAvailable(BookModel bookModel){
-//        Booking booking = queryBooking(bookModel);
-
-        return true;
+    private boolean isAvailable(BookModel bookModel) throws  Exception{
+        List<Booking> booking = queryBooking(bookModel);
+        return booking.isEmpty();
     }
 
     @Query
-    private Booking queryBooking(BookModel bookModel) throws  Exception{
+    private List<Booking> queryBooking(BookModel bookModel) throws  Exception{
         //check whetehr hotel rom is available with in time range
 
         return repository.getIntersectionBooking(bookModel.getRoomId(),
