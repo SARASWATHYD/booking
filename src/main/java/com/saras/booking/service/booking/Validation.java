@@ -35,6 +35,11 @@ public class Validation {
 
     }
 
+    public void validateBookingId(String id){
+        stringValidation(id,"BookModel Id");
+    }
+
+
 
     private void stringValidation(String property, String propertyName){
         if(!Optional.ofNullable(property).isPresent())

@@ -6,6 +6,8 @@ package com.saras.booking.model;
  */
 public class BookModel {
 
+    private String id;
+
     private String hotelId;
 
     private String startTime;
@@ -74,6 +76,14 @@ public class BookModel {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 

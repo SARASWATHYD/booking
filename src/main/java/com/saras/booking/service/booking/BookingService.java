@@ -22,19 +22,13 @@ public class BookingService {
     @Autowired
     BookingRepository repository;
 
-    public void bookRoom(BookModel bookModel) throws  Exception{
+    public Booking bookRoom(BookModel bookModel) throws  Exception{
         new Validation().validateBookModel(bookModel);
-        //check availability
-        boolean isAvailable = checkAvailability(bookModel);
-
-        if(isAvailable){
-            //block room in hotel
-            blockRoomAtHotel(bookModel);
-        }
-        //save user and hotel and room entity
+        if( checkAvailability(bookModel))
+           return  blockRoomAtHotel(bookModel);
     }
 
-    private void blockRoomAtHotel(BookModel bookModel){
+    private Booking blockRoomAtHotel(BookModel bookModel){
 
         Booking booking = new Booking();
         booking.setBookingId(""); // random generate
@@ -44,7 +38,7 @@ public class BookingService {
         booking.setEndTime(DateUtils.getLongFromString(bookModel.getEndTime()));
         booking.setUserId(bookModel.getEmail());
         booking.setDeleted(false);
-        create(booking);
+        return create(booking);
     }
 
 
@@ -61,8 +55,6 @@ public class BookingService {
 
     @Query
     private List<Booking> queryBooking(BookModel bookModel) throws  Exception{
-        //check whetehr hotel rom is available with in time range
-
         return repository.getIntersectionBooking(bookModel.getRoomId(),
                 DateUtils.getLongFromString(bookModel.getStartTime()),
                         DateUtils.getLongFromString(bookModel.getEndTime())).get().get();
@@ -81,6 +73,23 @@ public class BookingService {
 
             return repository.save(entity);
 
+    }
+
+
+    public Booking updateBooking(BookModel bookModel) throws  Exception {
+
+        new Validation().validateBookModel(bookModel);
+        Booking booking = get(bookModel.getId());
+        if (booking!=null)
+            throw new IllegalArgumentException("Id doesn't not exists::" +booking.getBookingId());
+        if( !checkAvailability(bookModel))
+            throw new IllegalArgumentException("Sorry picken slot is not available");
+
+        return blockRoomAtHotel(bookModel);
+    }
+
+    public Booking get(String id){
+       return repository.findById(id).get();
     }
 
 

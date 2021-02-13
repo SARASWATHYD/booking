@@ -1,7 +1,9 @@
 package com.saras.booking.controller;
 
+import com.saras.booking.entity.Booking;
 import com.saras.booking.model.BookModel;
 import com.saras.booking.service.booking.BookingService;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,24 +21,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class BasicController {
 
     @PutMapping
-    public String hello(){
-        return "Hello World!";
+    public Booking updateBooking(@RequestBody BookModel bookModel) throws Exception{
+        return  new BookingService().updateBooking(bookModel);
     }
 
     @GetMapping
-    public String customMessage(@RequestParam("msg") String msg){
-        return msg;
+    public Booking getBooking(@RequestParam("id") String id){
+        return new BookingService().get(id);
     }
 
 
-    @PostMapping
-    public String bookRoom(@RequestBody BookModel bookModel){
-        //if new user write it in user table with type as customer.
-        //else
-        // step 1 : write data in booking table.
-        // step 2 : write content in
+    @DeleteMapping
+    public Boolean deleteBooking(@RequestParam("id") String id){
+        return  new BookingService().deleteBooking(id);
+    }
 
-        new BookingService().bookRoom(bookModel);
-        return "Hello World!";
+    @PostMapping
+    public Booking bookRoom(@RequestBody BookModel bookModel) throws  Exception{
+       return  new BookingService().bookRoom(bookModel);
     }
 }
